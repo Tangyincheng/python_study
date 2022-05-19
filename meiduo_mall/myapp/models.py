@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Greades(models.Model):
+class Grades(models.Model):
     gname = models.CharField(max_length=20)
     gdate = models.DateTimeField()
     ggirlnum = models.IntegerField()
@@ -16,5 +16,4 @@ class Students(models.Model):
     sage = models.IntegerField(default=True)
     scontent = models.CharField(max_length=20)
     isDelete = models.BooleanField(default=False)
-    # 关联外键
-    sgrade = models.ForeignKey("Grades")
+    sgrade = models.ForeignKey("Grades", on_delete=models.CASCADE)
