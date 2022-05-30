@@ -1,4 +1,4 @@
-"""study0527 URL Configuration
+"""stydy0530 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/dev/topics/http/urls/
@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from web import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('depart/list/', views.depart_list),
+    path('depart/add/', views.depart_add),
+    path('depart/delete/', views.depart_delete)
 ]

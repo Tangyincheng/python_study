@@ -3,10 +3,12 @@ from django.db import models
 
 # Create your models here.
 class Department(models.Model):
+    """部门列表"""
     title = models.CharField(verbose_name="标题", max_length=32)
 
 
 class UserInfo(models.Model):
+    """用户信息"""
     name = models.CharField(verbose_name="姓名", max_length=16)
     password = models.CharField(verbose_name="密码", max_length=64)
     age = models.IntegerField(verbose_name="年龄")
