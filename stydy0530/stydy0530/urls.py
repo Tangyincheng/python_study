@@ -17,9 +17,14 @@ from django.contrib import admin
 from django.urls import path
 
 from web import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('depart/list/', views.depart_list),
     path('depart/add/', views.depart_add),
-    path('depart/delete/', views.depart_delete)
+    path('depart/delete/', views.depart_delete),
+    path('depart/<int:nid>/edit/', views.depart_edit),
+
+    path('user/list/', views.user_list),
+    path('user/add/', views.user_add),
+    path('user/model/form/add/', views.user_model_form_add)
 ]

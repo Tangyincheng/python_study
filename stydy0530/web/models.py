@@ -6,6 +6,9 @@ class Department(models.Model):
     """部门列表"""
     title = models.CharField(verbose_name="标题", max_length=32)
 
+    def __str__(self):
+        return self.title
+
 
 class UserInfo(models.Model):
     """用户信息"""
@@ -24,8 +27,7 @@ class UserInfo(models.Model):
     # - 生成数据列 depart_id
     # 3.部门表被删除
     # 3.1 级联删除
-    depart = models.ForeignKey(
-        to="Department", to_field="id", on_delete=models.CASCADE)
+    depart = models.ForeignKey(verbose_name="部门", to="Department", to_field="id", on_delete=models.CASCADE)
     # 3.2 置空
     # depart = models.ForeignKey(to="Department", to_field="id", null=True, blank=True, on_delete=models.SET_NULL)
 
