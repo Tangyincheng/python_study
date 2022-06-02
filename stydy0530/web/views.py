@@ -71,7 +71,7 @@ def user_add(request):
 class UserModelForm(forms.ModelForm):
     class Meta:
         model = models.UserInfo
-        fields = ["name", "password", "age", 'gender', 'depart']
+        fields = ["name", "password", "age", 'account', 'create_time', 'gender', 'depart']
         widgets = {
             "name": forms.TextInput(attrs={'class': 'form-control'}),
             "password": forms.TextInput(attrs={'class': 'form-control'}),
@@ -80,6 +80,50 @@ class UserModelForm(forms.ModelForm):
 
 
 def user_model_form_add(request):
-    print("111")
-    form = UserModelForm()
-    return render(request, "user_model_form_add.html", {'form': form})
+    """编辑用户"""
+
+    if request.method == "GET":
+        form = UserModelForm()
+        return render(request, "user_model_form_add.html", {'form': form})
+    form = UserModelForm(data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('/user/list/')
+    else:
+        return render(request, "user_model_form_add.html", {'form': form})
+
+
+def user_edit(request, nid):
+    """编辑用户"""
+
+    row_object = models.UserInfo.objects.filter(id=nid).first()
+    if request.method == 'GET':
+        form = UserModelForm(instance=row_object)
+        return render(request, 'user_edit.html', {'form': form})
+
+    form = UserModelForm(data=request.POST, instance=row_object)
+    if form.is_valid():
+        # 保存到数据库
+        form.save()
+        return redirect('/user/list/')
+    else:
+        return render(request, "user_model_form_add.html", {'form': form})
+
+
+def user_delete(request, nid):
+    models.UserInfo.objects.filter(id=nid).delete()
+    return redirect('/user/list/')
+
+
+def pretty_list(request):
+
+    query_set = models.PrettyNum.objects.all().order_by('id')
+
+    print(query_set)
+
+    return render(request, 'pretty_list.html', {"queryset": query_set})
+
+
+def pretty_add(request):
+
+    return render(request, 'pretty_add.html')
